@@ -1,0 +1,77 @@
+
+{
+  "descricao": "Dashboard Interativo - Educação em Senador José Porfírio",
+  "tema": {
+    "cores": {
+      "primaria": "#004080",
+      "secundaria": "#f0f8ff",
+      "destaque": "#f9a825",
+      "fundo": "#ffffff",
+      "texto": "#333333"
+    },
+    "tipografia": {
+      "fonte_principal": "Roboto, sans-serif",
+      "tamanho_base": "16px"
+    },
+    "layout": {
+      "responsivo": true,
+      "menu_lateral": true,
+      "cabecalho_fixo": true
+    }
+  },
+  "dados": {
+    "evolucao_recursos": {
+      "titulo": "Evolução dos Recursos por Programa",
+      "tipo": "linha",
+      "filtros": ["Programa", "Ano"],
+      "indicadores": ["Total Anual", "% Crescimento/Decrescimento"],
+      "fonte": "Planilha: Recursos por Programa"
+    },
+    "matriculas_anuais": {
+      "titulo": "Evolução das Matrículas",
+      "tipo": "barra",
+      "filtros": ["Ano", "Modo de Ensino"],
+      "indicadores": ["Total Anual", "% Crescimento/Decrescimento"],
+      "fonte": "Planilha: Matrículas"
+    },
+    "matriculas_ensino": {
+      "titulo": "Distribuição das Matrículas por Modo de Ensino",
+      "tipo": "pizza",
+      "filtros": ["Ano"],
+      "indicadores": ["Quantidade por Tipo de Ensino"],
+      "fonte": "Planilha: Matrículas"
+    },
+    "populacao_x_valores": {
+      "titulo": "População vs Recursos Mensais",
+      "tipo": "linha",
+      "filtros": ["Mês", "Ano"],
+      "indicadores": ["População", "PNAE", "PNATE", "Quota Estadual", "Quota Municipal"],
+      "fonte": "Planilha: População e Valores"
+    }
+  },
+  "ui": {
+    "componentes": [
+      { "tipo": "botao", "id": "exportarRelatorio", "texto": "Exportar Relatório em PDF", "acao": "exportarPDF()" },
+      { "tipo": "menu", "itens": ["Visão Geral", "Recursos", "Matrículas", "População x Recursos", "Relatório"] },
+      {
+        "tipo": "filtros",
+        "campos": [
+          { "nome": "Ano", "tipo": "dropdown", "opcoes": [2018, 2019, 2020, 2021, 2022, 2023] },
+          { "nome": "Programa", "tipo": "dropdown", "opcoes": ["PNAE", "PNATE", "Quota Estadual", "Quota Municipal"] }
+        ]
+      }
+    ]
+  },
+  "backend": {
+    "tipo": "conexao_excel",
+    "arquivo": "Senador J Porfírio.xlsx",
+    "planilhas": ["Recursos por Programa", "Matrículas", "População e Valores"],
+    "atualizacao_automatica": true
+  },
+  "insights": [
+    "O programa PNAE teve crescimento médio de 12% ao ano entre 2020 e 2023, com queda em 2021.",
+    "As matrículas no ensino infantil cresceram 8,5% em 2023 comparado a 2022, enquanto o ensino médio teve redução.",
+    "A maior concentração de matrículas está no ensino fundamental, representando mais de 60% em todos os anos.",
+    "A população do município está estabilizada, mas os recursos variam mensalmente de acordo com repasses."
+  ]
+}

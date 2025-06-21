@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educação - Senador José Porfírio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Roboto', sans-serif; background-color: #f0f8ff; color: #333; margin: 0; }
+    header { background-color: #004080; color: white; padding: 1rem; text-align: center; font-size: 1.5rem; }
+    nav { background-color: #f9a825; padding: 1rem; display: flex; gap: 1rem; justify-content: center; }
+    nav button { background-color: white; border: none; padding: 0.5rem 1rem; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    main { padding: 2rem; }
+    canvas { max-width: 100%; }
+  </style>
+</head>
+<body>
+  <header>Dashboard da Educação - Senador José Porfírio</header>
+  <nav>
+    <button onclick="mostrarGrafico('recursos')">Recursos</button>
+    <button onclick="mostrarGrafico('matriculas')">Matrículas</button>
+    <button onclick="mostrarGrafico('populacao')">População x Recursos</button>
+    <button onclick="exportarPDF()">Exportar Relatório</button>
+  </nav>
+  <main>
+    <div id="graficos">
+      <canvas id="graficoRecursos"></canvas>
+      <canvas id="graficoMatriculas" style="display:none"></canvas>
+      <canvas id="graficoPopulacao" style="display:none"></canvas>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    const dadosRecursos = {
+      labels: ["2018", "2019", "2020", "2021", "2022", "2023"],
+      datasets: [{ label: 'Total de Recursos (R$)', data: [1200000, 1350000, 1280000, 1400000, 1600000, 1750000], backgroundColor: '#004080' }]
+    };
+
+    const dadosMatriculas = {
+      labels: ["2018", "2019", "2020", "2021", "2022", "2023"],
+      datasets: [{ label: 'Total de Matrículas', data: [1500, 1600, 1550, 1580, 1650, 1720], backgroundColor: '#f9a825' }]
+    };
+
+    const dadosPopulacao = {
+      labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
+      datasets: [
+        { label: 'População (estimada)', data: [17000, 17050, 17100, 17150, 17200, 17250], borderColor: '#004080', fill: false },
+        { label: 'Recursos (R$)', data: [130000, 140000, 125000, 135000, 150000, 145000], borderColor: '#f9a825', fill: false }
+      ]
+    };
+
+    const ctxRecursos = new Chart(document.getElementById('graficoRecursos'), { type: 'bar', data: dadosRecursos });
+    const ctxMatriculas = new Chart(document.getElementById('graficoMatriculas'), { type: 'bar', data: dadosMatriculas });
+    const ctxPopulacao = new Chart(document.getElementById('graficoPopulacao'), { type: 'line', data: dadosPopulacao });
+
+    function mostrarGrafico(id) {
+      document.getElementById('graficoRecursos').style.display = 'none';
+      document.getElementById('graficoMatriculas').style.display = 'none';
+      document.getElementById('graficoPopulacao').style.display = 'none';
+      document.getElementById('grafico' + id.charAt(0).toUpperCase() + id.slice(1)).style.display = 'block';
+    }
+
+    function exportarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text("Relatório da Educação - Senador José Porfírio", 10, 10);
+      doc.text("Indicadores disponíveis via gráficos no site.", 10, 20);
+      doc.save("relatorio_educacao_senador_jose_porfirio.pdf");
+    }
+  </script>
+</body>
+</html>
